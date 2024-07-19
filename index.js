@@ -16,6 +16,7 @@ const rate_limiter = rateLimit({
   legacyHeaders: false
 })
 
+
 app.use("/", rate_limiter)
 
 app.use(express.json())
@@ -41,11 +42,11 @@ app.listen(PORT, () => {
 
 // Requirements:
 //     API Endpoints:
-//         Create Booking: Allow users to create a new booking entry. Required details include user ID, vehicle type, service type, and booking date.
-//         Retrieve Booking: Fetch details of a specific booking using the booking ID.
-//         Update Booking: Allow users to update an existing booking (e.g., change the booking date or service type).
-//         Delete Booking: Allow users to delete a booking.
-//         List Bookings: Retrieve a list of all bookings, with optional filters by date and vehicle type.
+//         Create Booking: Allow users to create a new booking entry. Required details include user ID, vehicle type, service type, and booking date.  /create
+//         Retrieve Booking: Fetch details of a specific booking using the booking ID.   /get/:id
+//         Update Booking: Allow users to update an existing booking (e.g., change the booking date or service type).   /update/:id
+//         Delete Booking: Allow users to delete a booking.  /delete/:id
+//         List Bookings: Retrieve a list of all bookings, with optional filters by date and vehicle type.   /
 
 //     Database:
 //         Use any SQL or NoSQL database to store booking data.
