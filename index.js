@@ -1,12 +1,22 @@
 const express = require('express');
 const bookingRoutes = require('./routes/bookingRoutes');
 const authRoutes = require('./routes/authRoutes');
+const {rateLimit} = require('express-rate-limit')
 
 require('dotenv').config();
 
 const client = require('./db')
 
 const app = express();
+const rate_limiter = rateLimit({
+  windowMs: 1000 * 60,  // Every 1 minute
+  limit: 5,
+  message: "You are requesting too many requests. Please try again after 1 minute.",
+  standardHeaders: 'draft-7',
+  legacyHeaders: false
+})
+
+app.use("/", rate_limiter)
 
 app.use(express.json())
 
@@ -16,6 +26,7 @@ client.query("", (err, result) => {
     if (result) console.log(result.rows);
     else console.log(err);
 })
+
 
 app.use('/api/v1/bookings', bookingRoutes);
 app.use('/api/v1/auth', authRoutes);
